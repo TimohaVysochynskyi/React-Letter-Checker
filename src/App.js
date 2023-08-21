@@ -34,24 +34,25 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Alphabet Checker</h1>
-        <select value={currentLanguage} onChange={handleLanguageChange}>
-          <option value="en">English</option>
-          <option value="uk">Українська</option>
-        </select>
-        <textarea
-          placeholder="Enter a sentence..."
-          value={inputSentence}
-          onChange={handleInputChange}
-        />
-        <div className="missing-letters">
-          {missingLetters.length > 0 && (
-            <p>Missing letters: {missingLetters.join(", ")}</p>
-          )}
-        </div>
-      </header>
+    <div className="container">
+      <select value={currentLanguage} onChange={handleLanguageChange}>
+        <option value="en"></option>
+        <option value="uk">Українська</option>
+      </select>
+      <button></button>
+      <button></button>
+
+      <textarea
+        placeholder="Enter a sentence..."
+        value={inputSentence}
+        onChange={handleInputChange}
+      />
+
+      <div className="missing-letters">
+        {missingLetters.length > 0 && (
+          <p>Missing letters: {missingLetters.join(", ")}</p>
+        )}
+      </div>
     </div>
   );
 }

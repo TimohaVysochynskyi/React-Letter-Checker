@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
+import ukImg from "./uk.png";
+import enImg from "./en.png";
 
 function App() {
   const languages = {
@@ -13,17 +15,24 @@ function App() {
 
   const [inputSentence, setInputSentence] = useState("");
   const [missingLetters, setMissingLetters] = useState([]);
-  const [currentLanguage, setCurrentLanguage] = useState("en"); // Початкова мова алфавіту - англійська
-
+  const [currentLanguage, setCurrentLanguage] = useState("uk");
   const handleInputChange = (event) => {
     const sentence = event.target.value.toLowerCase();
     setInputSentence(sentence);
     checkAlphabet(sentence);
   };
 
-  const handleLanguageChange = (event) => {
-    setCurrentLanguage(event.target.value);
+  const setEnglish = (event) => {
+    setCurrentLanguage("en");
     checkAlphabet(inputSentence);
+    document.querySelector("#ukBtn").style.boxShadow = "none";
+    event.currentTarget.style.boxShadow = "0px 0px 5px 2.5px #FFB033";
+  };
+  const setUkrainian = (event) => {
+    setCurrentLanguage("uk");
+    checkAlphabet(inputSentence);
+    document.querySelector("#enBtn").style.boxShadow = "none";
+    event.currentTarget.style.boxShadow = "0px 0px 5px 2.5px #FFB033";
   };
 
   const checkAlphabet = (sentence) => {
@@ -34,24 +43,28 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Alphabet Checker</h1>
-        <select value={currentLanguage} onChange={handleLanguageChange}>
-          <option value="en">English</option>
-          <option value="uk">Українська</option>
-        </select>
-        <textarea
-          placeholder="Enter a sentence..."
-          value={inputSentence}
-          onChange={handleInputChange}
-        />
-        <div className="missing-letters">
-          {missingLetters.length > 0 && (
-            <p>Missing letters: {missingLetters.join(", ")}</p>
-          )}
+    <div className="container">
+      <nav className="lang-wrapper">
+        <button className="lang-btn" onClick={setEnglish} id="enBtn">
+          <img src={enImg} alt="EN" />
+        </button>
+        <button className="lang-btn" onClick={setUkrainian} id="ukBtn">
+          <img src={ukImg} alt="UK" />
+        </button>
+      </nav>
+
+      <textarea
+        placeholder="Enter a sentence..."
+        value={inputSentence}
+        className="form-control"
+        onChange={handleInputChange}
+      />
+      {missingLetters.length > 0 && (
+        <div className="missing-wrapper">
+          <p className="missing-title">Missing letters:</p>
+          <p className="missing-letters">{missingLetters.join(", ")}</p>
         </div>
-      </header>
+      )}
     </div>
   );
 }
